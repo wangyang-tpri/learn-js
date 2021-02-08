@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Demo</title>
+    <link rel="stylesheet" href="./src/lib/css/idangerous.swiper.css">
+    <link rel="stylesheet" href="./src/css/banner.css">
+</head>
+
+<body>
+    <div id="container">
+
+
+        <div id="header">
+            西安热工研究院测试题-----轮播图
+        </div>
+        <div class="device" style="position: fixed; height: 100%; overflow: hidden;">
+            <a class="arrow-left" href="#">
+                < </a>
+                    <a class="arrow-right" href="#">></a>
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"> <img src="./src/img/banner1.png" class="imgHeight"> </div>
+
+                            <div class="swiper-slide" style="width: 100%; height: 100%; position: relative;">
+                                <video src="./src/img/c731e60a-8aa1-44c3-95df-1e5ef23ba931.mp4" autoplay preload="auto"
+                                    muted loop class="imgHeight"
+                                    style="object-fit: fill; position: absolute; top: 0; left: 0;">
+                                </video>
+
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="./src/img/9682-itvqcca6215052.gif" alt="" class="imgHeight">
+                            </div>
+                        </div>
+                        <div class="pagination"></div>
+                    </div>
+                    <div class="drop-down">
+
+                        <div class="describeText">
+                            这是下拉展示的第一张图片
+                        </div>
+                        <img src="./src/img/wifi5.png" alt="" class="img001">
+                    </div>
+                    <div class="drop-down2">
+                        这是下拉展示的第二张图片
+                        你好 西安热力研究院
+                    </div>
+        </div>
+
+        <img src="./src/img/up.png" alt="" class="up-top">
+        <img src="./src/img/down.png" alt="" id="imgD" class="downImage">
+        <img src="./src/img/up.png" alt="" id="upImg" class="upImage">
+        <canvas id="can" style="width: 100%; height: 100%; position: fixed; overflow: hidden;z-index: -10;"></canvas>
+    </div>
+    <script src="./src/lib/js/jquery-1.10.1.min.js"></script>
+    <script src="./src/lib/js/idangerous.swiper.min.js"></script>
+    
+    <script type="text/javascript">
+
+        window.onload = function () {
+
+
+            var canvas = document.getElementById('can'),
+                ctx = canvas.getContext('2d'),
+                w = canvas.width = window.innerWidth,
+                // h = canvas.height = window.innerHeight,
+                h = canvas.height = 640,
+                hue = 217,
+                stars = [],
+                count = 0,
+                maxStars = 400; //星星数量
+
+            var canvas2 = document.createElement('canvas'),
+                ctx2 = canvas2.getContext('2d');
+            canvas2.width = 100;
+            canvas2.height = 100;
+            var half = canvas2.width / 2,
+                gradient2 = ctx2.createRadialGradient(half, half, 0, half, half, half);
+            gradient2.addColorStop(0.025, '#CCC');
+            gradient2.addColorStop(0.1, 'hsl(' + hue + ', 61%, 33%)');
+            gradient2.addColorStop(0.25, 'hsl(' + hue + ', 64%, 6%)');
+            gradient2.addColorStop(1, 'transparent');
+
+            ctx2.fillStyle = gradient2;
+            ctx2.beginPath();
+            ctx2.arc(half, half, half, 0, Math.PI * 2);
+            ctx2.fill();
+
+            function random(min, max) {
+                if (arguments.length < 2) {
+                    max = min;
+                    min = 0;
+                }
+
+                if (min > max) {
+                    var hold = max;
+                    max = min;
+                    min = hold;
+                }
+
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            function maxOrbit(x, y) {
+                var max = Math.max(x, y),
+                    diameter = Math.round(Math.sqrt(max * max + max * max));
+                return diameter / 2;
+                //星星移动范围，值越大范围越小，
+            }
+
+            var Star = function () {
+                this.orbitRadius = random(maxOrbit(w, h));
+                this.radius = random(60, this.orbitRadius) / 8;
+                //星星大小
+                this.orbitX = w / 2;
+                this.orbitY = h / 2;
+                this.timePassed = random(0, maxStars);
+                this.speed = random(this.orbitRadius) / 400000;
+
+                this.alpha = random(2, 10) / 10;
+                count++;
+                stars[count] = this;
+            }
+
+            Star.prototype.draw = function () {
+                var x = Math.sin(this.timePassed) * this.orbitRadius + this.orbitX,
+                    y = Math.cos(this.timePassed) * this.orbitRadius + this.orbitY,
+                    twinkle = random(10);
+
+                if (twinkle === 1 && this.alpha > 0) {
+                    this.alpha -= 0.05;
+                } else if (twinkle === 2 && this.alpha < 1) {
+                    this.alpha += 0.05;
+                }
+
+                ctx.globalAlpha = this.alpha;
+                ctx.drawImage(canvas2, x - this.radius / 2, y - this.radius / 2, this.radius, this.radius);
+                this.timePassed += this.speed;
+            }
+
+            for (var i = 0; i < maxStars; i++) {
+                new Star();
+            }
+
+            function animation() {
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.globalAlpha = 0.5; //尾巴
+                ctx.fillStyle = 'hsla(' + hue + ', 64%, 6%, 2)';
+                ctx.fillRect(0, 0, w, h)
+
+                ctx.globalCompositeOperation = 'lighter';
+                for (var i = 1, l = stars.length; i < l; i++) {
+                    stars[i].draw();
+                };
+
+                window.requestAnimationFrame(animation);
+            }
+            animation();
+
+
+
+
+
+
+
+
+            var scrollHeight = document.body.clientHeight;
+            $('.swiper-container').css('height', (scrollHeight - 80) + 'px');
+            var mySwiper;
+            var scrollFunc = function (e) {
+                e = e || window.event;
+                if (dropCount > 2) {
+                    dropCount = 2;
+                }
+                if (e.wheelDelta) {  //判断浏览器IE，谷歌滑轮事件               
+                    if (e.wheelDelta > 0) { //当滑轮向上滚动时  
+
+                        if (dropCount == 1) {
+                            dropCount = 0;
+
+                            $('.up-top').css('display', 'none');
+
+                            moveToItem('device', 'swiper-container', ['drop-down2', 'drop-down']);
+                        } else if (dropCount == 2) {
+                            dropCount = 0;
+                            moveImage(dropCount);
+                        }
+                    }
+                    if (e.wheelDelta < 0) { //当滑轮向下滚动时 
+                        //鼠标上滑动时如何判断是那一张图片那
+                        // 现在的图片有3张 如何进行判断那
+
+                        moveImage(dropCount);
+                    }
+                } else if (e.detail) {  //Firefox滑轮事件  
+                    if (e.detail > 0) { //当滑轮向下滚动时  
+                        alert('下滚')
+                    }
+                    if (e.detail < 0) { //当滑轮向上滚动时  
+                        alert('上滚')
+                    }
+                }
+            }
+
+            window.onmousewheel = scrollFunc;
+
+            mySwiper = new Swiper('.swiper-container', {
+                pagination: '.pagination',
+                loop: true,
+                grabCursor: true,
+                paginationClickable: true,
+                autoplay: 3000,
+                autoplayDisableOnInteraction: false
+            })
+            mySwiper.activeLoopIndex = 0;
+
+            $('.arrow-left').on('click', function (e) {
+                e.preventDefault()
+                mySwiper.swipePrev()
+            })
+            $('.arrow-right').on('click', function (e) {
+                e.preventDefault()
+                mySwiper.swipeNext()
+            })
+
+
+            function moveToItem(sourceEle, targetEle, otherEle) {
+
+
+                $('.arrow-left').css('display', 'block');
+                $('.arrow-right').css('display', 'block');
+                $('.' + targetEle).css('display', 'block').addClass('translateHeight');
+                for (var i = 0; i < otherEle.length; i++) {
+                    $('.' + otherEle[i]).css('display', 'none');
+                }
+
+                if (targetEle == 'swiper-container') {
+                    $('.downImage').css('display', 'block');
+                    $('.upImage').css('display', 'none');
+                    mySwiper.swipeNext();
+                    mySwiper.activeLoopIndex = 2;
+
+                    mySwiper.isMoved = true;
+                    mySwiper.autoplay = true;
+                    mySwiper.activeLoaderIndex = true;
+                    return;
+                }
+
+            }
+            var dropCount = 0;
+            var upOrDown = 1;
+            //图片移动的function
+            function moveImage(count) {
+                switch (count) {
+                    case 0:
+                        dropCount++;
+                        $('.drop-down').css('display', 'block').addClass('translateHeight');
+                        $('.up-top').css('display', 'block');
+                        $('.upImage').css('display', 'block');
+                        $('.up-top').on('click', function () {
+                            $('.up-top').css('display', 'none');
+                            dropCount = 0;
+                            moveToItem('device', 'swiper-container', ['drop-down2', 'drop-down']);
+
+                        })
+                        $('.swiper-container').css('display', 'none');
+                        $('.drop-down2').css('display', 'none');
+                        $('.arrow-left').css('display', 'none');
+                        $('.arrow-right').css('display', 'none');
+                        $('.drop-down').css('display', 'block');
+                        $('.downImage').css('display', 'block');
+                        break;
+                    case 1:
+                        dropCount++;
+                        $('.drop-down2').css('display', 'block').addClass('translateHeight');
+                        $('.up-top').css('display', 'block');
+                        $('.upImage').css('display', 'block');
+                        $('.downImage').css('display', 'none');
+                        $('.up-top').on('click', function () {
+                            $('.up-top').css('display', 'none');
+                            dropCount = 0;
+                            moveToItem('device', 'swiper-container', ['drop-down2', 'drop-down']);
+                        })
+                        $('.swiper-container').css('display', 'none');
+                        $('.drop-down').css('display', 'none');
+                        $('.downImage').css('display', 'none');
+                        $('.arrow-left').css('display', 'none');
+                        $('.arrow-right').css('display', 'none');
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+            $('#imgD').on('click', function () {
+                moveImage(dropCount);
+            })
+
+            $('#upImg').on('click', function () {
+                if (dropCount > 2) {
+                    dropCount = 2;
+
+                }
+                if (dropCount == 1) {
+                    dropCount = 0;
+
+                    $('.up-top').css('display', 'none');
+
+                    moveToItem('device', 'swiper-container', ['drop-down2', 'drop-down']);
+                } else if (dropCount == 2) {
+                    dropCount = 0;
+                    moveImage(dropCount);
+                }
+
+            })
+        }
+
+
+    </script>
+</body>
+
+</html>
