@@ -1,3 +1,11 @@
+THREE.js使用的是左手坐标系
+
+Scene() 场景
+	var scene = new THREE.Scene()
+		scene.add() 在场景中添加物品
+		scene.remove() 移除场景中的物品
+		scene.children() 获取场景中所有子对象的列表
+		scene.getChildByName() 利用name属性 获取场景中的某个物体
 
 
 BoxGeometry()	用于创建立方体或者不规则的四边形
@@ -10,6 +18,9 @@ Mesh() 网格
 	material --- (可选) 可以是一个material 或是一个包含有meterial的数组，默认是一个新的MeshBasicMaterial()
 		或者其他类型的材质如MeshPhongMaterial()
 	通过Mesh()构造函数便可以将绘制的3D效果图展示出来
+
+	通过 THREE.Color()可以改变指定的网格的颜色(也就是所绘制的物体的颜色)
+	mesh.material.color = new THREE.Color()
 
 MeshBasicMaterial()	基础网格材质，一个以简单着色(平面或线框)方式来绘制集合体的材质，这种材质不受光照的影响
 	
