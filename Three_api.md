@@ -25,3 +25,14 @@ TextureLoader()	加载texture的一个类，内部使用ImageLoader来加载文件
 			map: texture
 		})
 
+
+
+CubeTextureLoader() 创建一个立方体盒子作为天空盒使用，然后把一个环境中上下左右前后六张视图图片作为立方体盒子
+	的纹理贴图使用，加载纹理贴图可以使用CubeTextureLoader()趋势
+	new THREE.CubeTextureLoader().loader(['放置图片路径的数组'])  // 一般是6张图片
+
+ShaderLib() THREE.js的WebGl着色器库
+ShaderMaterial() 是THREE.js中最复杂、最常用的材质之一。通过它可以使用自己定义的顶点着色器，直接在WebGl环境
+	中运行。
+updateProjectionMatrix() 更新相机投影矩阵，必须在参数发生变化后调用
+
