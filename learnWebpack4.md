@@ -27,6 +27,8 @@ loader
 		babel-loader	将es6代码转换成浏览器可以识别的es5代码。
 		url-loader		指定图片的路径。
 		postcss-loader	对css文件进行进一步的处理，比如添加浏览器的前缀，压缩css等。
+		source-map-loader 进行更细粒度的配置，不同的值会明显的影响构建(build)和重新构建(rebuild)的速度。
+						
 plugin
 	plugin是对打包后的文件进行优化，比如，压缩/丑化/css文件的单独抽取等功能。主要是为了解决loader无法实现的其他事。
 	plugin一般都是在plugins数组中进行配置
@@ -41,6 +43,7 @@ plugin
 		CommonsChunkPlugin      为每个页面间的应用程序共享代码创建bundle，可以实现多页面能够复用入口起点之家的
 								大量代码/模块
 		clean-webpack-plugin	删除文件夹下面的文件
+		source-map-devTool-plugin 对source map进行更细粒度的控制
 
 output 即使有多个入口文件，但是只指定一个输出配置
 

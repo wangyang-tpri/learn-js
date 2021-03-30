@@ -17,6 +17,8 @@
 	webpack是一个npm中的一个模块，可以使用npm进行安装，在打包的过程中需要依赖node环境。
 	webpack是一个前端的静态资源打包/发布的工具。它可以根据模块的依赖关系进行静态分析，然后按照指定的规则，将这些模块生成指定的静态资源。
 	
+	创建项目初始的package.json文件：npm init -y
+
 	安装模块：npm install
 	
 		npm install webpack -g (默认会安装最新的版本)	
@@ -42,3 +44,4 @@
 	添加用户：npm adduser
 	发布模块：npm publish(发布模块的话，需要用户登录的)
 	添加访问级别：npm access
+	将自己的模块发布的node_modules中：npm link 
