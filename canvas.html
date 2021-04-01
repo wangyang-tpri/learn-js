@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #can {
+            height: 500px;
+            width: 1000px;
+            border: 1px solid red
+        }
+    </style>
+
+</head>
+
+<body>
+    <canvas id="can" height="500px" width="500px"></canvas>
+    <script>
+        /**
+         * 和svg不同的是，canvas只支持两种路径的绘制，矩形和路径
+         *  绘制直线时 使用lineTo(x, y)方法
+         *  绘制圆弧时 使用arc(x, y, 半径, 起始弧度, 结束弧度, 是否顺时针) 方法  arc()绘制时使用的单位是弧度
+         *  js中弧度和角度的换算方式是 弧度 = (Math.PI / 180) * 角度
+        */
+        var ctx = document.getElementById('can').getContext('2d')
+        var draw = {
+            basic: function () {
+                ctx.fillStyle = 'rgba(0, 0, 200, 0.5)'
+                ctx.fillRect(10, 20, 50, 50)
+                ctx.fillStyle = 'rgba(0, 0, 100, 0.7)'
+                ctx.fillRect(20, 10, 50, 50) // 绘制填充的矩形
+                ctx.strokeStyle = 'rgba(0, 0, 50, 0.5)'
+                ctx.strokeRect(100, 50, 30, 30)  // 绘制矩形的边框
+                ctx.clearRect(10, 20, 50, 50)
+                var image = ctx.getImageData(10, 30, 50, 50)
+                ctx.beginPath()
+                ctx.moveTo(75, 50)
+                ctx.lineTo(100, 25)
+                ctx.lineTo(100, 75)
+                ctx.fill()  // fill() 的话 路径会自动闭合
+
+                ctx.beginPath()
+                ctx.moveTo(200, 50)
+                ctx.lineTo(225, 25)
+                ctx.lineTo(225, 75)
+                ctx.closePath()
+                ctx.stroke()  // 使用stroke()的话，路径不会自动闭合 需要使用closePath()
+
+                //绘制一个圆
+                ctx.beginPath()
+                ctx.strokeStyle = 'red'
+                ctx.arc(150, 90, 40, 0, Math.PI, false)
+                // ctx.closePath()
+                ctx.stroke()
+
+                // 绘制二次贝塞尔曲线
+                ctx.strokeStyle = 'black'
+                ctx.beginPath()
+                ctx.moveTo(70, 200)
+                ctx.quadraticCurveTo(200, 25, 20, 40)
+                ctx.stroke()
+            },
+            check: function () {
+                for (var i = 0; i < 5; i++) {
+                    for (var j = 0; j < 5; j++) {
+                        ctx.fillStyle = 'rgb(' + Math.floor(255 - 30 * i) + ',' + Math.floor(255 - 30 * j) + ', 0)'
+                        var distanceY = 25 * i;
+                        var distanceX = 25 * j;
+                        ctx.fillRect(100 + distanceY, 200 + distanceX, 25, 25)
+                    }
+                }
+            }
+        }
+        draw.basic()
+        draw.check()
+    </script>
+</body>
+
+</html>
