@@ -20,10 +20,10 @@
     <canvas id="can" height="500px" width="500px"></canvas>
     <script>
         /**
-         * ºÍsvg²»Í¬µÄÊÇ£¬canvasÖ»Ö§³ÖÁ½ÖÖÂ·¾¶µÄ»æÖÆ£¬¾ØĞÎºÍÂ·¾¶
-         *  »æÖÆÖ±ÏßÊ± Ê¹ÓÃlineTo(x, y)·½·¨
-         *  »æÖÆÔ²»¡Ê± Ê¹ÓÃarc(x, y, °ë¾¶, ÆğÊ¼»¡¶È, ½áÊø»¡¶È, ÊÇ·ñË³Ê±Õë) ·½·¨  arc()»æÖÆÊ±Ê¹ÓÃµÄµ¥Î»ÊÇ»¡¶È
-         *  jsÖĞ»¡¶ÈºÍ½Ç¶ÈµÄ»»Ëã·½Ê½ÊÇ »¡¶È = (Math.PI / 180) * ½Ç¶È
+         * å’Œsvgä¸åŒçš„æ˜¯ï¼Œcanvasåªæ”¯æŒä¸¤ç§è·¯å¾„çš„ç»˜åˆ¶ï¼ŒçŸ©å½¢å’Œè·¯å¾„
+         *  ç»˜åˆ¶ç›´çº¿æ—¶ ä½¿ç”¨lineTo(x, y)æ–¹æ³•
+         *  ç»˜åˆ¶åœ†å¼§æ—¶ ä½¿ç”¨arc(x, y, åŠå¾„, èµ·å§‹å¼§åº¦, ç»“æŸå¼§åº¦, æ˜¯å¦é¡ºæ—¶é’ˆ) æ–¹æ³•  arc()ç»˜åˆ¶æ—¶ä½¿ç”¨çš„å•ä½æ˜¯å¼§åº¦
+         *  jsä¸­å¼§åº¦å’Œè§’åº¦çš„æ¢ç®—æ–¹å¼æ˜¯ å¼§åº¦ = (Math.PI / 180) * è§’åº¦
         */
         var ctx = document.getElementById('can').getContext('2d')
         var draw = {
@@ -31,32 +31,32 @@
                 ctx.fillStyle = 'rgba(0, 0, 200, 0.5)'
                 ctx.fillRect(10, 20, 50, 50)
                 ctx.fillStyle = 'rgba(0, 0, 100, 0.7)'
-                ctx.fillRect(20, 10, 50, 50) // »æÖÆÌî³äµÄ¾ØĞÎ
+                ctx.fillRect(20, 10, 50, 50) // ç»˜åˆ¶å¡«å……çš„çŸ©å½¢
                 ctx.strokeStyle = 'rgba(0, 0, 50, 0.5)'
-                ctx.strokeRect(100, 50, 30, 30)  // »æÖÆ¾ØĞÎµÄ±ß¿ò
+                ctx.strokeRect(100, 50, 30, 30)  // ç»˜åˆ¶çŸ©å½¢çš„è¾¹æ¡†
                 ctx.clearRect(10, 20, 50, 50)
                 var image = ctx.getImageData(10, 30, 50, 50)
                 ctx.beginPath()
                 ctx.moveTo(75, 50)
                 ctx.lineTo(100, 25)
                 ctx.lineTo(100, 75)
-                ctx.fill()  // fill() µÄ»° Â·¾¶»á×Ô¶¯±ÕºÏ
+                ctx.fill()  // fill() çš„è¯ è·¯å¾„ä¼šè‡ªåŠ¨é—­åˆ
 
                 ctx.beginPath()
                 ctx.moveTo(200, 50)
                 ctx.lineTo(225, 25)
                 ctx.lineTo(225, 75)
                 ctx.closePath()
-                ctx.stroke()  // Ê¹ÓÃstroke()µÄ»°£¬Â·¾¶²»»á×Ô¶¯±ÕºÏ ĞèÒªÊ¹ÓÃclosePath()
+                ctx.stroke()  // ä½¿ç”¨stroke()çš„è¯ï¼Œè·¯å¾„ä¸ä¼šè‡ªåŠ¨é—­åˆ éœ€è¦ä½¿ç”¨closePath()
 
-                //»æÖÆÒ»¸öÔ²
+                //ç»˜åˆ¶ä¸€ä¸ªåœ†
                 ctx.beginPath()
                 ctx.strokeStyle = 'red'
                 ctx.arc(150, 90, 40, 0, Math.PI, false)
                 // ctx.closePath()
                 ctx.stroke()
 
-                // »æÖÆ¶ş´Î±´Èû¶ûÇúÏß
+                // ç»˜åˆ¶äºŒæ¬¡è´å¡å°”æ›²çº¿
                 ctx.strokeStyle = 'black'
                 ctx.beginPath()
                 ctx.moveTo(70, 200)

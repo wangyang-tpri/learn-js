@@ -45,6 +45,9 @@ plugin
 		clean-webpack-plugin	删除文件夹下面的文件
 		source-map-devTool-plugin 对source map进行更细粒度的控制
 
+		DefinePlugin 允许创建一个在编译时可以配置的全局变量，这对于开发模式和发布模式的构建允许不同的行为
+				非常有用。
+
 output 即使有多个入口文件，但是只指定一个输出配置
 
 DataUrl 最早出现在html文件中对图片img的引用，DataUrl提供了一种将图片"嵌入"到html文件中的方法。
